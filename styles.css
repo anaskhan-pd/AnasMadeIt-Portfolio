@@ -1329,3 +1329,21 @@ h1, h2, h3, h4, h5, h6 {
         padding-bottom: 0;
     }
 }
+
+.profile-avatar {
+    /* This ensures the square image doesn't stick out of the circle */
+    overflow: hidden; 
+    
+    /* Remove any padding if the "A" text had it, so the image touches the edges */
+    padding: 0; 
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    
+    /* This is the key: it crops the image to fill the circle without stretching it */
+    object-fit: cover; 
+    
+    display: block;
+}
