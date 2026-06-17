@@ -498,92 +498,157 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 48px;
 }
 
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+/* ============================================
+   WORK SECTION - HORIZONTAL DOUBLE MARQUEE
+   ============================================ */
+.marquee-container {
+    display: flex;
+    flex-direction: column;
     gap: 24px;
+    width: 100%;
+    overflow: hidden;
 }
 
-.portfolio-item {
-    background: var(--bg-card);
-    border-radius: var(--radius-xl);
+.marquee-wrapper {
+    width: 100%;
     overflow: hidden;
-    border: 1px solid var(--border-color);
-    transition: var(--transition-base);
+    position: relative;
+    padding: 15px 0;
+    /* Soft horizontal fade edges */
+    mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+}
+
+/* Alternating directions and animations */
+.marquee-left .marquee-track {
+    animation: scroll-left 32s linear infinite;
+}
+
+.marquee-right .marquee-track {
+    animation: scroll-right 32s linear infinite;
+}
+
+/* Pause marquee on hover */
+.marquee-wrapper:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+/* Marquee Scrolling Keyframes */
+@keyframes scroll-left {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+@keyframes scroll-right {
+    0% {
+        transform: translate3d(-50%, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Thumbnail Card Sizing & Transitions (Round corners decreased by 3px to 13px) */
+.thumbnail-card {
+    position: relative;
+    width: 27.5vw; /* Exactly ~3.5 items visible at 100vw width */
+    margin-right: 24px; /* Space between cards */
+    aspect-ratio: 16 / 9; /* Standard YouTube CTR ratio */
+    border-radius: 13px; /* Decreased from 16px */
+    flex-shrink: 0;
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s ease;
+    z-index: 1;
     cursor: pointer;
 }
 
-.portfolio-item:hover {
-    border-color: var(--teal);
-    transform: translateY(-4px);
+.thumbnail-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(20, 184, 166, 0.25);
+    z-index: 10;
 }
 
-.portfolio-image {
-    position: relative;
-    aspect-ratio: 16/9;
+.thumbnail-image-wrapper {
+    width: 100%;
+    height: 100%;
     overflow: hidden;
+    border-radius: 13px; /* Decreased from 16px */
+    background: var(--bg-card);
 }
 
-.portfolio-image img {
+.thumbnail-image-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.portfolio-item:hover .portfolio-image img {
-    transform: scale(1.05);
+.thumbnail-card:hover .thumbnail-image-wrapper img {
+    transform: scale(1.04);
 }
 
-.portfolio-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 60%);
-    opacity: 0;
-    transition: var(--transition-base);
-    display: flex;
-    align-items: flex-end;
-    padding: 20px;
+/* Media Queries for Responsive Horizontal Marquee */
+@media (max-width: 1024px) {
+    .marquee-container {
+        gap: 20px;
+    }
+    .marquee-wrapper {
+        padding: 10px 0;
+    }
+    .thumbnail-card {
+        width: 38vw; /* ~2.5 items visible */
+        margin-right: 16px;
+    }
 }
 
-.portfolio-item:hover .portfolio-overlay {
-    opacity: 1;
+@media (max-width: 768px) {
+    .marquee-container {
+        gap: 16px;
+    }
+    .marquee-wrapper {
+        padding: 8px 0;
+    }
+    .thumbnail-card {
+        width: 62vw; /* ~1.5 items visible */
+        margin-right: 12px;
+        border-radius: 10px; /* Proportionately decreased */
+    }
+    .thumbnail-image-wrapper {
+        border-radius: 10px; /* Proportionately decreased */
+    }
 }
 
-.overlay-content {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
+/* ============================================
+   LENIS SMOOTH SCROLL INTEGRATION STYLES
+   ============================================ */
+html.lenis {
+    height: auto;
 }
 
-.project-category {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-secondary);
+.lenis-smooth {
+    scroll-behavior: auto !important;
 }
 
-.project-stat {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--teal);
+.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
 }
 
-.portfolio-info {
-    padding: 20px;
+.lenis-stopped {
+    overflow: hidden;
 }
 
-.portfolio-info h3 {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 4px;
-}
-
-.portfolio-info p {
-    font-size: 0.8rem;
-    color: var(--text-muted);
+.lenis-scrolling iframe {
+    pointer-events: none;
 }
 
 /* ============================================

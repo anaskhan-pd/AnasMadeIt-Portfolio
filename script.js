@@ -6,7 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     initCustomCursor();
     initLoader();
-    initSmoothScroll();
+    initLenisScroll();
     initBottomNav();
     initScrollAnimations();
     initFormHandling();
@@ -63,7 +63,7 @@ function initCustomCursor() {
     
     // Interactive elements
     const interactiveElements = document.querySelectorAll(
-        'a, button, .portfolio-item, .result-card, .quality-item, ' +
+        'a, button, .thumbnail-card, .result-card, .quality-item, ' +
         '.contact-link, .nav-item, .btn, [role="button"]'
     );
     
@@ -142,20 +142,56 @@ function initLoader() {
 }
 
 // ============================================
-// SMOOTH SCROLL
+// LENIS SMOOTH SCROLL
 // ============================================
-function initSmoothScroll() {
+let lenisInstance;
+
+function initLenisScroll() {
+    // Check if touch device
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        // Fallback for touch devices to scroll normally
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        return;
+    }
+
+    lenisInstance = new Lenis({
+        duration: 1.1,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1.1,
+        smoothTouch: false,
+        infinite: false,
+    });
+
+    function raf(time) {
+        lenisInstance.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Bind navigation click events to Lenis API scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
-            
             if (target) {
-                const offsetTop = target.offsetTop - 20;
-                
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
+                lenisInstance.scrollTo(target, {
+                    offset: -20,
+                    immediate: false,
+                    duration: 1.1
                 });
             }
         });
@@ -260,7 +296,7 @@ function initBottomNav() {
 function initScrollAnimations() {
     // Elements to animate
     const animatedElements = document.querySelectorAll(
-        '.section-header, .portfolio-item, .result-card, .quality-item, ' +
+        '.section-header, .marquee-wrapper, .result-card, .quality-item, ' +
         '.about-content, .visual-card, .contact-content, .contact-form-wrapper, ' +
         '.testimonial-highlight'
     );
@@ -294,7 +330,7 @@ function initScrollAnimations() {
 
 // Immediate animation for visible elements
 function animateOnScroll() {
-    const elements = document.querySelectorAll('.portfolio-item, .result-card, .quality-item');
+    const elements = document.querySelectorAll('.marquee-wrapper, .result-card, .quality-item');
     
     elements.forEach((el, index) => {
         const rect = el.getBoundingClientRect();
@@ -407,15 +443,7 @@ function initParallax() {
 // ============================================
 // PORTFOLIO HOVER EFFECTS
 // ============================================
-document.querySelectorAll('.portfolio-item').forEach(item => {
-    item.addEventListener('mouseenter', function() {
-        this.style.transition = 'all 0.3s ease';
-    });
-    
-    item.addEventListener('mouseleave', function() {
-        this.style.transition = 'all 0.3s ease';
-    });
-});
+// Custom portfolio hover effect overrides handled via styles.css for 60fps performance
 
 // ============================================
 // INTERSECTION OBSERVER FOR STATS
