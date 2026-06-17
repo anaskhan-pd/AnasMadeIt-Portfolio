@@ -528,11 +528,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Alternating directions and animations */
 .marquee-left .marquee-track {
-    animation: scroll-left 32s linear infinite;
+    animation: scroll-left 35s linear infinite;
 }
 
 .marquee-right .marquee-track {
-    animation: scroll-right 32s linear infinite;
+    animation: scroll-right 35s linear infinite;
 }
 
 /* Pause marquee on hover */
