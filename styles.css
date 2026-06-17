@@ -528,11 +528,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Alternating directions and animations */
 .marquee-left .marquee-track {
-    animation: scroll-left 25s linear infinite;
+    animation: scroll-left 32s linear infinite;
 }
 
 .marquee-right .marquee-track {
-    animation: scroll-right 25s linear infinite;
+    animation: scroll-right 32s linear infinite;
 }
 
 /* Pause marquee on hover */
@@ -595,6 +595,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .thumbnail-card:hover .thumbnail-image-wrapper img {
     transform: scale(1.04);
+}
+
+/* Zoom in specific thumbnail images to hide their white corners */
+.thumbnail-image-wrapper img[src*="thumb57"],
+.thumbnail-image-wrapper img[src*="thumb68"] {
+    transform: scale(1.08);
+}
+
+.thumbnail-card:hover .thumbnail-image-wrapper img[src*="thumb57"],
+.thumbnail-card:hover .thumbnail-image-wrapper img[src*="thumb68"] {
+    transform: scale(1.14);
 }
 
 /* Media Queries for Responsive Horizontal Marquee */
