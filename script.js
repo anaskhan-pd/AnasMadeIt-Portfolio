@@ -547,7 +547,7 @@ style.textContent = `
     
     /* Focus styles for form */
     .form-group.focused label {
-        color: var(--teal);
+        color: var(--primary);
     }
 `;
 document.head.appendChild(style);
