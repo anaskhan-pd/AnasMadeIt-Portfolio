@@ -1,10 +1,21 @@
-#  Thumbnail Design Portfolio
+# Thumbnail Design Portfolio
 
-**Personal portfolio website showcasing thumbnail designs for videos, streams, and social content.**
+**A personal portfolio showcasing thumbnail designs for videos, streams, and social content.**
+
+## About
+This is a clean, minimal portfolio website displaying my best thumbnail work. Browse my design styles, get inspired, and reach out for commissions or collaborations.
+
+## Open Source
+This project is **100% open source and free to contribute**. Feel free to fork, modify, and use it for your own portfolio!
+
+## Quick Start
+1. Clone or download the project
+2. Open `index.html` in your browser
+3. Customize with your own designs and content
+
+## License
+Open source and free to use. Contributions welcome!
 
 ---
 
-## 🚀 Overview
-This is a personal portfolio website for thumbnail designing. It highlights my best thumbnail work, showcases design process and styles, and provides an easy way to contact me for commissions or collaborations.
-
-i have made this project open source so if someone wants to use it they can without a doubt.
+*Made for the creative community*
