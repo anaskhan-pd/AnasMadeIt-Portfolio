@@ -10,9 +10,6 @@
 ## About
 This is a clean, minimal portfolio website displaying my best thumbnail work. Browse my design styles, get inspired, and reach out for commissions or collaborations.
 
-## Demo
-![Demo](images/demo.gif)
-
 ## Open Source
 This project is **100% open source and free to contribute**. Feel free to fork, modify, and use it for your own portfolio!
 
